@@ -14,10 +14,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
+const decorators_1 = require("@nestjs/common/decorators");
 const app_service_1 = require("./app.service");
 const auth_service_1 = require("./auth/auth.service");
 const jwt_auth_guard_1 = require("./auth/jwt-auth.guard");
 const local_auth_guard_1 = require("./auth/local-auth.guard");
+const http_exception_filter_1 = require("./http-exception.filter");
 let AppController = class AppController {
     constructor(appService, authService) {
         this.appService = appService;
@@ -49,6 +51,7 @@ __decorate([
 ], AppController.prototype, "login", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, decorators_1.UseFilters)(http_exception_filter_1.HttpExceptionFilter),
     (0, common_1.Get)('profile'),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
